@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Microservice Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        button {
+            margin: 10px 0;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Backend Results</h1>
+
+    <!-- Vehicle Scheduler -->
+    <h2>Vehicle Maintenance Schedule</h2>
+    <button onclick="loadSchedule()">Load Schedule</button>
+    <pre id="scheduleOutput">Click button to load schedule...</pre>
+
+    <!-- Notifications -->
+    <h2>Top Notifications</h2>
+    <button onclick="loadNotifications()">Load Notifications</button>
+    <pre id="notifOutput">Click button to load notifications...</pre>
+
+    <script>
+        async function loadSchedule() {
+            const output = document.getElementById("scheduleOutput");
+            output.innerText = "Loading...";
+
+            try {
+                const res = await fetch("http://localhost:3000/api/schedule");
+
+                if (!res.ok) throw new Error("Schedule API failed");
+
+                const data = await res.json();
+                output.innerText = JSON.stringify(data, null, 2);
+
+            } catch (err) {
+                output.innerText = "Error: " + err.message;
+                console.error(err);
+            }
+        }
+
+        async function loadNotifications() {
+            const output = document.getElementById("notifOutput");
+            output.innerText = "Loading...";
+
+            try {
+                const res = await fetch("http://localhost:4000/api/notifications");
+
+                if (!res.ok) throw new Error("Notification API failed");
+
+                const data = await res.json();
+                output.innerText = JSON.stringify(data, null, 2);
+
+            } catch (err) {
+                output.innerText = "Error: " + err.message;
+                console.error(err);
+            }
+        }
+    </script>
+
+</body>
+</html>
