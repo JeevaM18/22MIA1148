@@ -135,7 +135,7 @@ Log(stack, level, package, message)
 
 ---
 
-## ⚙️ Algorithms Used
+##  Algorithms Used
 
 - 0/1 Knapsack Algorithm
 - Priority Sorting (Placement > Result > Event)
